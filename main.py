@@ -11,7 +11,7 @@ def load_task():
     pass
 def save_task():
     pass
-def time(): 
+def title(): 
     string = strftime('%H:%M:%S %p') 
     root.title(str(cal.selection_get()) + " | " + string + " | Calendar Todo")
     root.after(1000, time) 
@@ -42,5 +42,5 @@ button_load_tasks.grid(row=6, column=1, sticky='W')
 
 button_save_tasks = tk.Button(root, text="Save tasks",width=20, command=save_task)
 button_save_tasks.grid(row=6, column=2, sticky='W')
-
+title()
 root.mainloop()
