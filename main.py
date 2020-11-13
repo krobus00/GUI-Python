@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkcalendar import Calendar, DateEntry
-
+from time import strftime 
 def listTodo(cb):
     print(cal.selection_get())
 def add_task():
@@ -11,6 +11,11 @@ def load_task():
     pass
 def save_task():
     pass
+def time(): 
+    string = strftime('%H:%M:%S %p') 
+    root.title(str(cal.selection_get()) + " | " + string + " | Calendar Todo")
+    root.after(1000, time) 
+
 root = tk.Tk()
 root.title("Calendar Todo")
 cal = Calendar(root, font="Arial 14", selectmode='day', locale='id_ID',
