@@ -14,7 +14,7 @@ def save_task():
 def title(): 
     string = strftime('%H:%M:%S %p') 
     root.title(str(cal.selection_get()) + " | " + string + " | Calendar Todo")
-    root.after(1000, time) 
+    root.after(1000, title)
 
 root = tk.Tk()
 root.title("Calendar Todo")
