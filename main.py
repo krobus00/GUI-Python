@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk 
 from tkcalendar import Calendar, DateEntry
 from time import strftime 
 def listTodo(cb):
@@ -17,20 +18,29 @@ def title():
     root.after(1000, title)
 
 root = tk.Tk()
+s = ttk.Style()
+s.configure('Treeview', rowheight=16) 
 root.title("Calendar Todo")
 cal = Calendar(root, font="Arial 14", selectmode='day', locale='id_ID',
                 cursor="hand1")
 cal.bind( "<<CalendarSelected>>", listTodo )
 cal.grid(row=0, column=0, sticky='W',rowspan=8)
-listbox_tasks = tk.Listbox(root, height=10, width=50)
-listbox_tasks.grid(row=0, column=1, sticky='NS', rowspan=4, columnspan=2)
+treev = ttk.Treeview(root) 
+treev.grid(row=0, column=1, sticky='WNE', rowspan=3, columnspan=2)
 
 scrollbar_tasks = tk.Scrollbar(root)
 scrollbar_tasks.grid(row=0, column=2, sticky='ENS', rowspan=4)
+treev.configure(xscrollcommand = scrollbar_tasks.set) 
+scrollbar_tasks.config(command=treev.yview)
+treev["columns"] = ("1", "2") 
 
-listbox_tasks.config(yscrollcommand=scrollbar_tasks.set)
-scrollbar_tasks.config(command=listbox_tasks.yview)
+treev['show'] = 'headings'
 
+treev.column("1", width = 50) 
+treev.column("2", width = 150) 
+
+treev.heading("1", text ="JAM") 
+treev.heading("2", text ="JUDUL")
 button_add_task = tk.Button(root, text="Add task",width=20, command=add_task)
 button_add_task.grid(row=5, column=1, sticky='W')
 
