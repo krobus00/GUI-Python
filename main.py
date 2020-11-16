@@ -23,8 +23,8 @@ def ListTodo(cb=None):
     for i in treev.get_children():
         treev.delete(i)
     if tgl in todos:
-        for i in todos[tgl]:
-            treev.insert("", 'end', text ="todo", values =(i['jam'], i['judul']))
+        for idx,i in enumerate(todos[tgl]):
+            treev.insert("", 'end', text=idx, values=(i['jam'], i['judul']))
 def AddForm():
     win = tk.Toplevel()
     win.wm_title("+")
@@ -40,8 +40,10 @@ def AddForm():
     keterangan = ScrolledText(win, width=12, height=5)
     keterangan.grid(row=2, column=1, columnspan=2, rowspan=4)
     ttk.Button(win, text="Tambah", command=lambda: AddTodos(win, str(cal.selection_get()),jam,menit,judul,keterangan)).grid(row=10, column=0)
-def DelForm():
-    pass
+def DelTodo():
+    curItem = treev.focus()
+    todos[str(cal.selection_get())].pop(treev.item(curItem)['text'])
+    ListTodo()
 def LoadTodos():
     pass
 def SaveTodos():
@@ -78,7 +80,7 @@ treev.heading("2", text ="JUDUL")
 buttonAdd = tk.Button(root, text="Add task",width=20, command=AddForm)
 buttonAdd.grid(row=5, column=1, sticky='W')
 
-buttonDelete = tk.Button(root, text="Delete task",width=20, command=DelForm)
+buttonDelete = tk.Button(root, text="Delete task",width=20, command=DelTodo)
 buttonDelete.grid(row=5, column=2, sticky='W')
 
 buttonLoad = tk.Button(root, text="Load tasks",width=20, command=LoadTodos)
