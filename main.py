@@ -47,7 +47,9 @@ def DelTodo():
 def LoadTodos():
     pass
 def SaveTodos():
-    pass
+    f = open('mytodo.dat','w')
+    f.write(str(todos))
+    f.close()
 def Title(): 
     string = strftime('%H:%M') 
     root.title(str(cal.selection_get()) + " | " + string + " | Calendar Todo")
