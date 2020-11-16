@@ -19,7 +19,6 @@ def AddTodos(win, key, jam, menit, judul, keterangan):
     win.destroy()
 def ListTodo(cb=None):
     tgl = str(cal.selection_get())
-    print(tgl)
     for i in treev.get_children():
         treev.delete(i)
     if tgl in todos:
@@ -45,7 +44,12 @@ def DelTodo():
     todos[str(cal.selection_get())].pop(treev.item(curItem)['text'])
     ListTodo()
 def LoadTodos():
-    pass
+    global todos
+    f = open('mytodo.dat','r')
+    data=f.read()
+    f.close()
+    todos = eval(data)
+    ListTodo()
 def SaveTodos():
     f = open('mytodo.dat','w')
     f.write(str(todos))
