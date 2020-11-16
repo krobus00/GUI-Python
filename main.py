@@ -54,6 +54,22 @@ def SaveTodos():
     f = open('mytodo.dat','w')
     f.write(str(todos))
     f.close()
+def detailTodo(cb=None):
+    win = tk.Toplevel()
+    win.wm_title("Detail Todo")
+    curItem = treev.focus()
+    selectidx = treev.item(curItem)['text']
+    selectTodo = todos[str(cal.selection_get())][selectidx]
+    judul = tk.StringVar(value=selectTodo['judul'])
+    tk.Label(win, text="Tanggal:").grid(sticky='E',row=0,column=0)
+    tk.Label(win, text="{} | {}".format(str(cal.selection_get()), selectTodo['jam'])).grid(sticky='W',row=0,column=1, columnspan=2)
+    tk.Label(win, text="Judul:").grid(sticky='E',row=1,column=0)
+    tk.Entry(win,state=tk.DISABLED,textvariable=judul).grid(sticky='W',row=1, column=1, columnspan=2)
+    tk.Label(win, text="Keteragan:").grid(sticky='E',row=2,column=0)
+    keterangan = ScrolledText(win, width=12, height=5)
+    keterangan.grid(sticky='W',row=2, column=1, columnspan=2, rowspan=4)
+    keterangan.insert(tk.INSERT, selectTodo['keterangan'])
+    keterangan.configure(state ='disabled') 
 def Title(): 
     string = strftime('%H:%M') 
     root.title(str(cal.selection_get()) + " | " + string + " | Calendar Todo")
@@ -83,6 +99,7 @@ treev.column("2", width = 150)
 
 treev.heading("1", text ="JAM") 
 treev.heading("2", text ="JUDUL")
+treev.bind("<Double-1>", detailTodo)
 buttonAdd = tk.Button(root, text="Add task",width=20, command=AddForm)
 buttonAdd.grid(row=5, column=1, sticky='W')
 
