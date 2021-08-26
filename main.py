@@ -8,6 +8,7 @@ todos = {}
 def detailTodo(cb=None):
     win = tk.Toplevel()
     win.wm_title("Detail todo")
+    tanggal = str(cal.selection_get())
     selectedItem = treev.focus()
     selectedIndex = treev.item(selectedItem)['text']
     selectedTodo = todos[tanggal][selectedIndex]
